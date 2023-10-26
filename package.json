@@ -3,14 +3,26 @@
   "version": "3.3.1",
   "description": "Typescript client for Manticore Search",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build"
+    "build": "tsup",
+    "format": "prettier . --write",
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "package.json"
   ],
   "browser": {
     "fs": false
@@ -22,8 +34,27 @@
     "search",
     "client",
     "index"
-  ],  
+  ],
+  "peerDependencies": {
+    "typescript": ">=4.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@types/chai": "^4.3.9",
+    "@types/jest": "^29.5.6",
+    "@types/mocha": "^10.0.3",
+    "chai": "^4.3.10",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "prettier": "^3.0.3",
+    "tsup": "^7.2.0",
     "typescript": "^4.0"
+  },
+  "lint-staged": {
+    "*.--write": "prettier --write"
   }
 }
